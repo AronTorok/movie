@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>No Signal Movies</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" type="image/x-icon" href="tv_logo_bg.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Cal+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/tailwindcss">
+      @theme {
+        --font-cal: "Cal Sans", sans-serif;
+        --font-bowlby: "Bowlby One SC", sans-serif;
+      }
+
+      h1 {
+        @apply font-bowlby text-xl p-4 pb-0;
+      }
+
+      .bg {
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        right: -50%;
+        bottom: -50%;
+        width: 200%;
+        min-height: 100vh;
+        background: transparent
+          url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
+        animation: bg-animation 0.2s infinite;
+        opacity: 0.9;
+        pointer-events: none;
+      }
+
+      @keyframes bg-animation {
+        0% {
+          transform: translate(0, 0);
+        }
+        10% {
+          transform: translate(-5%, -5%);
+        }
+        20% {
+          transform: translate(-10%, 5%);
+        }
+        30% {
+          transform: translate(5%, -10%);
+        }
+        40% {
+          transform: translate(-5%, 15%);
+        }
+        50% {
+          transform: translate(-10%, 5%);
+        }
+        60% {
+          transform: translate(15%, 0);
+        }
+        70% {
+          transform: translate(0, 10%);
+        }
+        80% {
+          transform: translate(-15%, 0);
+        }
+        90% {
+          transform: translate(10%, 5%);
+        }
+        100% {
+          transform: translate(5%, 0);
+        }
+      }
+
+      @keyframes tv-nosignal {
+        100% {
+          background-position:
+            50% 0,
+            60% 50%;
+        }
+      }
+
+      .box::before {
+        content: "";
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        right: 25%;
+        bottom: 15%;
+        background:
+          repeating-radial-gradient(#000 0 0.0001%, #fff 0 0.0002%) 60%
+            60%/3000px 3000px,
+          repeating-conic-gradient(#000 0 0.0001%, #fff 0 0.0002%) 60%
+            60%/3000px 3000px;
+        background-blend-mode: difference;
+        animation: tv-nosignal 0.2s infinite alternate;
+      }
+    </style>
+  </head>
+  <body class="font-cal bg-[url('movies.jpg')]">
+    <div id="root"></div>
+    <script type="text/babel">
+      const TvLogo = () => {
+        return (
+          <div className="box aspect-[1.45/1] relative w-xs">
+            <img
+              src="logo.png"
+              alt="Logo"
+              className="absolute w-full relative shadow-2xl rounded-md"
+            />
+          </div>
+        );
+      };
+      const MovieCard = ({ image, name, text, color }) => {
+        return (
+          <div className="bg-white rounded-md shadow-2xl">
+            <img src={image} alt={name} className="rounded-md" />
+            <h1>{name}</h1>
+            <p className="p-4">{text}</p>
+            <button
+              className={`bg-[${color}] text-[${color == "yellow" ? "black" : "white"}] hover:bg-[${color == "yellow" ? "black" : "white"}] hover:text-[${color}] hover:outline-4 cursor-pointer p-3 rounded-md ml-3.5 mb-3.5`}
+            >
+              Watch Now
+            </button>
+          </div>
+        );
+      };
+      function App() {
+        return (
+          <>
+            <div className="bg"></div>
+            <div className="container mx-auto px-7">
+              <div className="flex sm:flex-row flex-col sm:justify-between items-center gap-7">
+                <TvLogo />
+                <div className="grid grid-cols-2 bg-zinc-950 content-start text-white w-fit gap-2 p-3 rounded-md h-55.5 shadow-2xl">
+                  <div className="col-span-2">
+                    <img src="power.svg" alt="Power" className="size-10" />
+                  </div>
+                  <div className="bg-[red] text-center rounded-md p-1.5 hover:bg-white hover:text-[red] hover:outline-2 cursor-pointer">
+                    HOME
+                  </div>
+                  <div className="bg-[green] text-center rounded-md p-1.5 hover:bg-white hover:text-[green] hover:outline-2 cursor-pointer">
+                    ABOUT
+                  </div>
+                  <div className="bg-[yellow] text-center rounded-md p-1.5 hover:bg-black hover:text-[yellow] hover:outline-2 cursor-pointer text-black">
+                    CONTACT
+                  </div>
+                  <div className="bg-[blue] rounded-md p-1.5 flex justify-center hover:bg-white hover:outline-2 hover:outline-[blue] hover:text-[blue] cursor-pointer">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="26"
+                      height="26"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3zM9.5 14q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7 mt-20">
+                <MovieCard
+                  image="shawnshank.png"
+                  name="THE SHAWNSHANK REDEMPTION"
+                  text={
+                    <>
+                      Andy Dufresne, a successful banker, is arrested for the
+                      murders of his wife and her lover, and is sentenced to
+                      life imprisonment at the Shawshank prison. He becomes the
+                      most unconventional prisoner.
+                    </>
+                  }
+                  color="red"
+                />
+                <MovieCard
+                  image="godfather.png"
+                  name="THE GODFATHER"
+                  text={
+                    <>
+                      Don Vito Corleone, head of a mafia family, decides to hand
+                      over his empire to his youngest son, Michael. However, his
+                      decision unintentionally puts the lives of his loved ones
+                      in grave danger.
+                    </>
+                  }
+                  color="green"
+                />
+                <MovieCard
+                  image="knight.png"
+                  name="THE DARK KNIGHT"
+                  text={
+                    <>
+                      Batman has a new foe, the Joker, who is an accomplished
+                      criminal hell-bent on decimating Gotham City. Together
+                      with Gordon and Harvey Dent, Batman struggles to thwart
+                      the Joker before it is too late.
+                    </>
+                  }
+                  color="yellow"
+                />
+                <MovieCard
+                  image="godfather2.png"
+                  name="THE GODFATHER PART II"
+                  text={
+                    <>
+                      Vito's popularity in the underworld is on the rise, while
+                      his son, Michael's career is swinging downwards. In order
+                      to redeem himself, Michael must fight his enemies,
+                      including his own brother.
+                    </>
+                  }
+                  color="blue"
+                />
+              </div>
+              <div className="flex justify-center mt-7">
+                <div className="bg-white p-4 rounded-md shadow-2xl">
+                  This is a website template. If you would like to see some of
+                  my other works, go to my{" "}
+                  <a
+                    href="https://arontorok.github.io/"
+                    className="text-[red] hover:underline"
+                  >
+                    portfolio website
+                  </a>{" "}
+                  (https://arontorok.github.io/).
+                </div>
+              </div>
+              <div className="flex justify-center mt-20">
+                <TvLogo />
+              </div>
+            </div>
+          </>
+        );
+      }
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
